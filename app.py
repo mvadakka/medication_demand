@@ -78,13 +78,13 @@ for name, model in models.items():
     preds_test = model.predict(X_test)
     preds_train = model.predict(X_train)
     results[name] = {
-        'model': model,
-        'train_preds': preds_train,
-        'test_preds': preds_test,
-        'train_r2': r2_score(y_train, preds_train),
-        'test_r2': r2_score(y_test, preds_test),
-        'rmse': mean_squared_error(y_test, preds_test, squared=False)
-    }
+    'model': model,
+    'train_preds': preds_train,
+    'test_preds': preds_test,
+    'train_r2': r2_score(y_train, preds_train),
+    'test_r2': r2_score(y_test, preds_test),
+    'mse': mean_squared_error(y_test, preds_test)
+}
 
 # Feature importance (Random Forest only)
 rf_model = models['Random Forest']
@@ -152,7 +152,7 @@ app.layout = html.Div([
         ]),
         dcc.Tab(label='Forecasting', children=[
             html.P("Six different machine learning models were created to test how well each model can learn from the data and generalize to new, unseen information and predict medication sales. Two evaluation metrics are calculated for each:"), 
-            html.P("1. Root Mean Squared Error (RMSE): Measures how far off the predictions are from the actual sales values — lower is better."), 
+            html.P("1. Mean Squared Error (MSE): Measures how far off the predictions are from the actual sales values — lower is better."), 
             html.P("2. R² (R-squared Score): Measures how much of the variability in sales the model explains — closer to 1 is better."),
             html.H3(children=''' Select a model:'''),
             dcc.Dropdown(
