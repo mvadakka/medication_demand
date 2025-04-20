@@ -12,8 +12,6 @@ from sklearn.neighbors import KNeighborsRegressor
 from xgboost import XGBRegressor
 from sklearn.metrics import mean_squared_error, r2_score
 
-server = app.server 
-
 # Load and prepare data
 df = pd.read_csv("medication_demand_data.csv", engine='python')
 
@@ -98,6 +96,8 @@ rf_feature_importance = pd.DataFrame({
 # Dash App
 app = Dash(__name__)
 app.title = "Medication Demand Dashboard"
+server = app.server 
+
 
 app.layout = html.Div([
     html.H1("\ud83d\udcca Medication Demand Dashboard"),
