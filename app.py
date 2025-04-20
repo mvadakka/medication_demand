@@ -172,7 +172,7 @@ app.layout = html.Div([
             html.H3("Feature Importance (Random Forest)"),
             html.P("The feature importance scores indicate which variables had the most influence on predicting medication sales. Features such as marketing spend, Google search trends, region, and flu case counts were among the top contributors in our strongest model, offering valuable insight into the key drivers of medication demand."),
             dcc.Graph(figure=px.bar(rf_feature_importance, x='Importance', y='Feature', orientation='h', title="Feature Importance Scores")),
-        dcc.Tab(label='Predict a Medications Sales Volume', children = [
+        dcc.Tab(label='Predict a Medications Sales Volume for a specific Week', children = [
             html.H2("Predict Medication Demand Across Regions"),
     html.P("Use the selectors below to define your demand scenario. Predictions are based on your chosen values and the Random Forest Model above."),
     html.Div([
@@ -221,7 +221,7 @@ app.layout = html.Div([
         dcc.Slider(id='humidity-input', min=0, max=100, step=1, value=5, marks=None, tooltip={"placement": "bottom", "always_visible": True}),
 
         html.H4("7. Week Number"),
-        html.P("Select a week number (1–52). The app will use this to assign flu season context."),
+        html.P("Select a week number (1–52) you would like to predict sales for. The app will use this week number to assign flu season context."),
         dcc.Slider(id='week-input', min=1, max=52, step=1, value=10, marks=None, tooltip={"placement": "bottom", "always_visible": True}),
 
         html.H4("8. Holiday"),
@@ -304,7 +304,7 @@ def update_model_display(model_name):
         html.H4(f"{model_name} Performance"),
         html.P(f"Train R²: {res['train_r2']:.2f}"),
         html.P(f"Test R²: {res['test_r2']:.2f}"),
-        html.P(f"Test RMSE: {res['rmse']:.2f}")
+        html.P(f"Test MSE: {res['mse']:.2f}")
     ])
     return metrics, fig
 
